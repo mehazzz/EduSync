@@ -1,4 +1,4 @@
-name: EduSync CI/CD
+name: EduSync CI
 
 on:
   push:
@@ -7,29 +7,24 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout Repository
+      - name: ⬇️ Checkout repository
         uses: actions/checkout@v3
 
-      - name: 🟢 Setup Node.js
+      - name: ⚙️ Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '18' # or whatever version you're using
 
-      - name: 📦 Install Dependencies
+      - name: 📦 Install dependencies
         run: npm install
 
-      - name: 🧪 Run Tests (optional)
-        run: echo "No test script defined" # Replace with `npm test` if you have tests
-
-      - name: 🛠️ Build Project
+      - name: 🔨 Build project
         run: npm run build
 
-      - name: 🚀 Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+      # Optional: Run tests if you have any
+      # - name: ✅ Run tests
+      #   run: npm test
